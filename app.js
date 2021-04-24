@@ -1,5 +1,7 @@
 //Geting the Discord.js library
 const Discord = require('discord.js');
+const request = require('request');
+
 require('dotenv').config();
 
 //The Discord constructor
@@ -43,3 +45,26 @@ client.on('message', (msg) => {
         msg.channel.send(jokes[Math.floor(Math.random() * jokes.length)]);
     }
 });
+
+var n;
+
+client.on('message', (message) => {
+    if(message.content === '?loop') {
+        message.reply('Loop started');
+        var interveral = setInterval(function() {
+            request('http://store.digitalriver.com/store?Action=buy&Env=BASE&Locale=en&ProductID=5458374200&SiteID=defaults', function (
+            error,
+            response,
+            body
+            ) {
+                n = body.search("00016");
+                console.error('Searching body...')
+            })
+            if(n != '-1') {
+                message.channel.send("Site updated");
+            }
+        }, 600000)
+    }
+});
+            
+
