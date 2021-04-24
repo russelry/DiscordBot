@@ -46,7 +46,7 @@ client.on('message', (msg) => {
     }
 });
 
-var n;
+var n = 0;
 
 client.on('message', (message) => {
     if(message.content === '?loop') {
@@ -58,11 +58,13 @@ client.on('message', (message) => {
             body
             ) {
                 n = body.search("00016");
-                console.error('Searching body...')
+                console.log('Searching body...');
+                console.log(n);
+                if(n != '-1') {
+                    message.channel.send("Site updated!");
+                }
             })
-            if(n != '-1') {
-                message.channel.send("Site updated");
-            }
+            
         }, 600000)
     }
 });
